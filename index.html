@@ -13,45 +13,71 @@
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--2-col">
       <!-- Main repo -->
-      <form action="#">
-        <div class="mdl-textfield mdl-js-textfield config-input ">
-          <input class="mdl-textfield__input" type="text" id="main-repo-name">
-          <label class="mdl-textfield__label" for="main-repo-name">Main repo name</label>
+      <form action="#" id="main-repo-form">
+        <div class="config-enabled">
+          <div class="mdl-textfield mdl-js-textfield config-input ">
+            <input class="mdl-textfield__input" type="text" id="main-repo-name">
+            <label class="mdl-textfield__label" for="main-repo-name">Main repo name</label>
+          </div>
+          <!-- Apply button -->
+          <button id="set-main-repo" class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+            Apply
+          </button>
         </div>
-        <!-- Flat button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
-          Apply
-        </button>
+
+        <div class="config-disabled">
+          <span class="mdl-chip mdl-chip--deletable">
+          <span class="mdl-chip__text">placeholder name</span>
+          <button id="edit-main-repo" type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+          </span>
+        </div>
+
       </form>
       <!-- Main repo end -->
     </div>
     <div class="mdl-cell mdl-cell--2-col">
       <!-- Pro repo -->
-      <form action="#">
-        <div class="mdl-textfield mdl-js-textfield config-input ">
-          <input class="mdl-textfield__input" type="text" id="pro-repo-name">
-          <label class="mdl-textfield__label" for="pro-repo-name">Pro repo name</label>
+      <form action="#" id="complementary-repo-form">
+
+        <div class="config-enabled">
+          <div class="mdl-textfield mdl-js-textfield config-input ">
+            <input class="mdl-textfield__input" type="text" id="complementary-repo-name">
+            <label class="mdl-textfield__label" for="complementary-repo-name">Complementary repo name</label>
+          </div>
+          <button id="set-complementary-repo" class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+            Apply
+          </button>
         </div>
-        <!-- Flat button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
-          Apply
-        </button>
+
+        <div class="config-disabled">
+          <span class="mdl-chip mdl-chip--deletable">
+          <span class="mdl-chip__text">placeholder name</span>
+          <button id="edit-complementary-repo" type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+          </span>
+        </div>
 
       </form>
       <!-- Pro repo end -->
     </div>
     <div class="mdl-cell mdl-cell--6-col">
       <!-- Auth key -->
-      <form action="#">
-        <div class="mdl-textfield mdl-js-textfield config-input-long ">
-          <input class="mdl-textfield__input" type="text" id="auth-key">
-          <label class="mdl-textfield__label" for="auth-key">Github authorization key</label>
+      <form action="#" id="auth-token-form">
+        <div class="config-enabled">
+          <div class="mdl-textfield mdl-js-textfield config-input-long ">
+            <input class="mdl-textfield__input" type="text" id="auth-token">
+            <label class="mdl-textfield__label" for="auth-token">Github authorization token</label>
+          </div>
+          <!-- Flat button with ripple -->
+          <button id="set-github-auth" class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+            Apply
+          </button>
         </div>
-        <!-- Flat button with ripple -->
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
-          Apply
-        </button>
-
+        <div class="config-disabled">
+          <span class="mdl-chip mdl-chip--deletable">
+          <span class="mdl-chip__text">placeholder name</span>
+          <button id="edit-auth-token" type="button" class="mdl-chip__action"><i class="material-icons">cancel</i></button>
+          </span>
+        </div>
       </form>
       <!-- Auth key end -->
     </div>

@@ -17,3 +17,23 @@ form button.config-button {
     position: relative;
     top: -20px;
 }
+
+form .config-enabled {
+    display: block;
+}
+
+form .config-disabled {
+    display: none;
+}
+
+form#main-repo-form .mdl-chip {
+    background: #d6f3d5;
+}
+
+.rnom-hidden {
+    display: none !important;
+}
+
+.rnom-visible {
+    display: block !important;
+}
