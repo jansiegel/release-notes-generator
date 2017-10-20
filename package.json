@@ -17,6 +17,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "css-loader": "^0.28.7",
+    "getmdl-select": "^1.1.0",
     "github-api": "^3.0.0",
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1"
@@ -26,7 +27,7 @@
     "material-design-lite": "^1.3.0"
   },
   "scripts": {
-    "prepare-material": "cp ./node_modules/material-design-lite/material.css ./static/material.css",
+    "prepare-material": "cp ./node_modules/material-design-lite/material.css ./static/material.css && cp ./node_modules/getmdl-select/getmdl-select.min.css ./static/getmdl-select.min.css",
     "prepare": "npm run prepare-material",
     "prepublish": "npm run prepare"
   }

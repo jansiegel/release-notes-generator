@@ -44,7 +44,14 @@ class EventManager {
         this.dom.flipConfigInputs(2);
       });
 
+      this.addEvent('change', 'milestone', (e) => {
+        this.rnom.ghController.getIssuesForMilestone(e.target.getAttribute('data-val'));
+      });
+
       this.dom.flipConfigInputs();
+
+      // get Milestones
+      this.rnom.ghController.getMilestones();
     });
   }
 

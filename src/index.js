@@ -1,4 +1,6 @@
+import GithubController from './ghController';
 import EventManager from './eventManager';
+import DOMOperations from './dom';
 import GitHub from 'github-api';
 import 'material-design-lite';
 
@@ -30,6 +32,12 @@ class ReleaseNotesOMatic {
     this.gh = null;
 
     /**
+     * TODO: docs
+     * @type {DOMOperations}
+     */
+    this.dom = new DOMOperations();
+
+    /**
      * The EventManager instance.
      * @type {Object}
      */
@@ -37,6 +45,13 @@ class ReleaseNotesOMatic {
 
     // config
     this.eventManager.registerEvents();
+    this.authGithub();
+
+    /**
+     * TODO: docs
+     * @type {GithubController}
+     */
+    this.ghController = new GithubController(this);
   }
 
   /**

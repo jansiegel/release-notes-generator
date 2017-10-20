@@ -6,6 +6,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link href="./static/material.css" rel="stylesheet">
+  <link href="./static/getmdl-select.min.css" rel="stylesheet">
   <link href="./static/styles.css" rel="stylesheet">
 </head>
 <body>
@@ -86,15 +87,23 @@
 
   <div class="mdl-grid">
     <div class="mdl-cell mdl-cell--4-col">
-      <table class="mdl-data-table mdl-shadow--2dp">
+
+      <!-- MILESTONE SELECTOR -->
+      <div id="milestone-selector" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
+        <input class="mdl-textfield__input" id="milestone" name="milestone" value="..." type="text" readonly tabIndex="-1" data-val="Placeholder"/>
+        <label for="milestone">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        </label>
+        <label class="mdl-textfield__label" for="milestone">Milestone:</label>
+        <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu" for="milestone">
+          <li class="mdl-menu__item" data-val="Placeholder2">...</li>
+        </ul>
+      </div>
+      <!-- MILESTONE SELECTOR END -->
+
+      <table id="issue-table" class="mdl-data-table mdl-shadow--2dp">
         <tr>
-          <td class="mdl-data-table__cell--non-numeric">List</td>
-        </tr>
-        <tr>
-          <td class="mdl-data-table__cell--non-numeric">of</td>
-        </tr>
-        <tr>
-          <td class="mdl-data-table__cell--non-numeric">Issues</td>
+          <td class="mdl-data-table__cell--non-numeric">Select a milestone above.</td>
         </tr>
       </table>
 
@@ -106,6 +115,7 @@
 
 
 </div>
+<script type="text/javascript" src="https://cdn.rawgit.com/CreativeIT/getmdl-select/master/getmdl-select.min.js"></script>
 <script type="text/javascript" src="./dist/bundle.js"></script>
 </body>
 </html>
