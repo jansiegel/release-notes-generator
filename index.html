@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ReleaseNotes-o-Matic</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="./static/material.css" rel="stylesheet">
+  <link href="./static/styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--2-col">
+      <!-- Main repo -->
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield config-input ">
+          <input class="mdl-textfield__input" type="text" id="main-repo-name">
+          <label class="mdl-textfield__label" for="main-repo-name">Main repo name</label>
+        </div>
+        <!-- Flat button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+          Apply
+        </button>
+      </form>
+      <!-- Main repo end -->
+    </div>
+    <div class="mdl-cell mdl-cell--2-col">
+      <!-- Pro repo -->
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield config-input ">
+          <input class="mdl-textfield__input" type="text" id="pro-repo-name">
+          <label class="mdl-textfield__label" for="pro-repo-name">Pro repo name</label>
+        </div>
+        <!-- Flat button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+          Apply
+        </button>
+
+      </form>
+      <!-- Pro repo end -->
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      <!-- Auth key -->
+      <form action="#">
+        <div class="mdl-textfield mdl-js-textfield config-input-long ">
+          <input class="mdl-textfield__input" type="text" id="auth-key">
+          <label class="mdl-textfield__label" for="auth-key">Github authorization key</label>
+        </div>
+        <!-- Flat button with ripple -->
+        <button class="mdl-button mdl-js-button mdl-js-ripple-effect config-button">
+          Apply
+        </button>
+
+      </form>
+      <!-- Auth key end -->
+    </div>
+  </div>
+
+
+  <div class="mdl-grid">
+    <div class="mdl-cell mdl-cell--4-col">
+      <table class="mdl-data-table mdl-shadow--2dp">
+        <tr>
+          <td class="mdl-data-table__cell--non-numeric">List</td>
+        </tr>
+        <tr>
+          <td class="mdl-data-table__cell--non-numeric">of</td>
+        </tr>
+        <tr>
+          <td class="mdl-data-table__cell--non-numeric">Issues</td>
+        </tr>
+      </table>
+
+    </div>
+    <div class="mdl-cell mdl-cell--6-col">
+      sth
+    </div>
+  </div>
+
+
+</div>
+<script type="text/javascript" src="./dist/bundle.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+* {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+form div.config-input {
+    width: 150px;
+    position: relative;
+    top: -20px;
+}
+
+form div.config-input-long {
+    position: relative;
+    top: -20px;
+}
+
+form button.config-button {
+    position: relative;
+    top: -20px;
+}
