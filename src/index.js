@@ -3,6 +3,10 @@ import EventManager from './eventManager';
 import DOMOperations from './dom';
 import GitHub from 'github-api';
 import 'material-design-lite';
+import RepoDataCache from "./repoDataCache";
+import MarkdownGenerator from "./markdownGenerator";
+import ChangesCache from "./changesCache";
+import HTMLGenerator from "./htmlGenerator";
 
 class ReleaseNotesOMatic {
 
@@ -12,12 +16,6 @@ class ReleaseNotesOMatic {
      * @type {String}
      */
     this.mainRepo = localStorage.rnom_mainRepoName || null;
-
-    /**
-     * Complementary repo name.
-     * @type {String}
-     */
-    this.complementaryRepo = localStorage.rnom_complementaryRepoName || null;
 
     /**
      * Github token provided from the UI.
@@ -33,15 +31,39 @@ class ReleaseNotesOMatic {
 
     /**
      * TODO: docs
+     * @type {RepoDataCache}
+     */
+    this.repoCache = new RepoDataCache(this);
+
+    /**
+     * TODO: docs
+     * @type {ChangesCache}
+     */
+    this.changesCache = new ChangesCache(this);
+
+    /**
+     * TODO: docs
      * @type {DOMOperations}
      */
-    this.dom = new DOMOperations();
+    this.dom = new DOMOperations(this);
 
     /**
      * The EventManager instance.
      * @type {Object}
      */
     this.eventManager = new EventManager(this);
+
+    /**
+     * TODO: docs
+     * @type {MarkdownGenerator}
+     */
+    this.markdownGenerator = new MarkdownGenerator(this);
+
+    /**
+     * TODO: docs
+     * @type {HTMLGenerator}
+     */
+    this.htmlGenerator = new HTMLGenerator(this);
 
     // config
     this.eventManager.registerEvents();
@@ -70,15 +92,6 @@ class ReleaseNotesOMatic {
   setMainRepo(name) {
     localStorage.setItem('rnom_mainRepoName', name);
     this.mainRepo = name;
-  }
-
-  /**
-   * Set the complementary repo name.
-   * @param {String} name
-   */
-  setComplementaryRepo(name) {
-    localStorage.setItem('rnom_complementaryRepoName', name);
-    this.complementaryRepo = name;
   }
 
   /**

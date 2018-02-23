@@ -37,3 +37,89 @@ form#main-repo-form .mdl-chip {
 .rnom-visible {
     display: block !important;
 }
+
+#issue-table {
+    width: 100%;
+    white-space: nowrap;
+    word-break: break-all;
+    table-layout: fixed;
+}
+
+#issue-table tr td:first-child {
+    width: 30px;
+}
+
+#issue-table tr td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+#issue-table * {
+    white-space: nowrap;
+    word-break: break-all;
+}
+
+#details-table {
+    width: 100%;
+    table-layout: fixed;
+    position: relative;
+    top: 22px;
+}
+
+#details-table th {
+    text-align: left;
+    padding: 6px;
+    height: inherit;
+}
+
+#details-table tr td {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    white-space: initial;
+}
+
+#issue-table td.merged:after {
+    content: 'Merged (ready for release)';
+    display: block;
+    position: absolute;
+    right: 1px;
+    bottom: 1px;
+    background: #006b75;
+    font-size: 9px;
+    padding: 0 2px 0px 2px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 12px;
+}
+
+#issue-table td.pr:before {
+    content: 'PR';
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    background: #0092d2;
+    font-size: 9px;
+    padding: 0 2px 0px 2px;
+    color: #fff;
+    font-weight: bold;
+    line-height: 12px;
+}
+
+#issue-table td.breaking {
+    background: #ff9794;
+}
+
+#issue-table td:not([class*="merged"]):not([class*="init"]) {
+    color: #bfbfbf;
+    background: #f3f1f1;
+}
+
+#markdown, #html-result {
+    width: 80%;
+}
+
+.result-button-container {
+    text-align: right;
+}

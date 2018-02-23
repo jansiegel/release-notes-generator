@@ -1,6 +1,10 @@
-class DOMOperations {
-  constructor() {
+import MarkdownIt from 'markdown-it';
 
+class DOMOperations {
+  constructor(rnom) {
+    this.rnom = rnom;
+    this.repoCache = this.rnom.repoCache;
+    this.markdownIt = new MarkdownIt();
   }
 
   getFormData(inputId) {
@@ -12,8 +16,8 @@ class DOMOperations {
    * @param inputIndex
    */
   flipConfigInputs(inputIndex) {
-    const lsItems = ['rnom_mainRepoName', 'rnom_complementaryRepoName', 'rnom_ghToken'];
-    const formElementIds = ['main-repo-form', 'complementary-repo-form', 'auth-token-form'];
+    const lsItems = ['rnom_mainRepoName', 'rnom_ghToken'];
+    const formElementIds = ['main-repo-form', 'auth-token-form'];
     let formElem = null;
     let startIndex = 0;
     let endIndex = lsItems.length;
@@ -48,7 +52,6 @@ class DOMOperations {
 
     const pseudoSelectElement = document.querySelector('#milestone-selector');
     const pseudoSelectElementUl = pseudoSelectElement.querySelector('ul');
-    const pseudoSelectElementInput = pseudoSelectElement.querySelector('input');
 
     // Clear the suggestion list
     while (pseudoSelectElementUl.firstChild) {
@@ -64,20 +67,7 @@ class DOMOperations {
       pseudoSelectElementUl.appendChild(li);
     }
 
- // <input class="mdl-textfield__input" id="milestone" name="milestone" value="..." type="text" readonly tabIndex="-1" data-val="Placeholder"/>
- //    pseudoSelectElement.removeChild(pseudoSelectElementInput);
- //    let newInput = document.createElement('INPUT');
- //    newInput.className = 'mdl-textfield__input';
- //    newInput.setAttribute('type', 'text');
- //    newInput.setAttribute('readonly', 'true');
- //    newInput.setAttribute('tabIndex', '-1');
- //    newInput.setAttribute('data-val', encodeURI(milestonesArray[0].title));
- //    newInput.id = 'milestone';
- //    newInput.value = milestonesArray[0].title;
- //
- //    pseudoSelectElement.insertBefore(newInput, pseudoSelectElement.firstChild);
-
-    if (getmdlSelect) {
+    if (window.getmdlSelect !== void 0) {
       getmdlSelect.init('#milestone-selector');
     }
   }
@@ -87,11 +77,9 @@ class DOMOperations {
    * @param issuesArray
    */
   displayIssues(issuesArray) {
-    const table = document.querySelector('#issue-table');
+    issuesArray = issuesArray.reverse();
 
-    /*
-    <tr><td class="mdl-data-table__cell--non-numeric">Select a milestone above.</td></tr>
-     */
+    const table = document.querySelector('#issue-table');
 
     // Clear the table
     while (table.firstChild) {
@@ -99,13 +87,90 @@ class DOMOperations {
     }
 
     for (let i = 0; i < issuesArray.length; i++) {
-      let TR = document.createElement('TR');
-      let TD = document.createElement('TD');
-      TD.className = 'mdl-data-table__cell--non-numeric';
-      TD.innerText = issuesArray[i].title;
+      const TR = document.createElement('TR');
+      const TD = document.createElement('TD');
+      const label = document.createElement('LABEL');
+      const radio = document.createElement('INPUT');
+      const issue = issuesArray[i];
+
+      label.setAttribute('for', issue.number);
+      radio.setAttribute('type', 'radio');
+      radio.setAttribute('name', 'issues');
+      radio.setAttribute('onclick', 'rnom.dom.updateDetailsTable(' + issue.number + ');'); // Well this is ugly.
+      radio.id = issue.number;
+
+      label.appendChild(radio);
+
+      TD.className = 'mdl-data-table__cell--non-numeric '
+        + (issue._rnom.merged ? ' merged' : '')
+        + (issue._rnom.pr ? ' pr' : '')
+        + (issue._rnom.breaking ? ' breaking' : '');
+
+      const issueTitle = document.createTextNode(' ' +  issue.title);
+
+      label.appendChild(issueTitle);
+      TD.appendChild(label);
       TR.appendChild(TD);
       table.appendChild(TR);
     }
+  }
+
+  getIssueLink(issueNumber) {
+    return `<a href="https://github.com/${localStorage.rnom_mainRepoName}/issues/${issueNumber}">#${issueNumber}</a> `
+  };
+
+  updateDetailsTable(issueNumber) {
+    const table = document.querySelector('#details-table');
+    const tbody = document.querySelector('tbody');
+    const issueCache = this.repoCache.getIssueCache(issueNumber);
+    const changeCache = this.rnom.changesCache.getChangeCache(issueNumber);
+
+    if (!issueCache) {
+      console.warn('This issue cache doesn\'t exist.');
+      return;
+    }
+
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+
+    let TR = document.createElement('TR');
+    TR.className = 'no-hover';
+    let TD = document.createElement('TD');
+
+    if (changeCache) {
+      TD.setAttribute('contenteditable', 'true');
+    }
+
+    TD.id = 'issue-title';
+    TD.className = 'mdl-data-table__cell--non-numeric';
+    TD.innerText = changeCache || issueCache.title;
+    TD.setAttribute('onblur', 'rnom.eventManager.helperFunctions.titleChanged(this, ' + issueNumber + ');'); // Well this is ugly.
+    TR.appendChild(TD);
+    tbody.appendChild(TR);
+
+    TR = document.createElement('TR');
+    TR.className = 'no-hover';
+    TD = document.createElement('TD');
+    TD.className = 'mdl-data-table__cell--non-numeric';
+    TD.innerHTML = this.getIssueLink(issueNumber) + '<br><br>' + this.markdownIt.render(issueCache.body.replace(/(\<\!\-\-)(.*)(\-\-\>)/gi, '')); // remove comments
+    TD.setAttribute('contenteditable', 'false');
+    TR.appendChild(TD);
+    tbody.appendChild(TR);
+  }
+
+  updateMarkdown() {
+    const content = this.rnom.markdownGenerator.generate();
+    const markdownDialog = document.getElementById('markdown');
+
+    markdownDialog.querySelector('code').innerText = content;
+  }
+
+  updateHTMLResult() {
+    const content = this.rnom.htmlGenerator.generate();
+    const markdownDialog = document.getElementById('html-result');
+
+    markdownDialog.querySelector('code').innerText = content;
   }
 }
 

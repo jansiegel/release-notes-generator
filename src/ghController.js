@@ -4,6 +4,8 @@ class GithubController {
     this.gh = this.rnom.gh;
     this.dom = this.rnom.dom;
     this.issues = null;
+    this.repo = null;
+    this.repoCache = this.rnom.repoCache;
   }
 
   getIssuesController(user, repo, force) {
@@ -14,11 +16,18 @@ class GithubController {
     return this.issues;
   }
 
+  getRepoController(user, repo, force) {
+    if (!this.repo || force) {
+      this.repo = this.gh.getRepo(user, repo);
+    }
+
+    return this.repo;
+  }
+
   getMilestones() {
-    // [user, repo] = this.rnom.mainRepo.split('/');
-    let user = this.rnom.mainRepo.split('/')[0];
-    let repo = this.rnom.mainRepo.split('/')[1];
+    const [user, repo] = this.rnom.mainRepo.split('/');
     const issuesController = this.getIssuesController(user, repo);
+    const repoController = this.getRepoController(user, repo);
     const _this = this;
 
     if (issuesController) {
@@ -29,8 +38,7 @@ class GithubController {
   }
 
   getIssuesForMilestone(milestone) {
-    let user = this.rnom.mainRepo.split('/')[0];
-    let repo = this.rnom.mainRepo.split('/')[1];
+    const [user, repo] = this.rnom.mainRepo.split('/');
     const issuesController = this.getIssuesController(user, repo);
     const _this = this;
 
@@ -38,7 +46,10 @@ class GithubController {
       issuesController.listIssues({
         milestone: milestone
       }, (sth, issuesArray) => {
+        _this.repoCache.cacheIssues(issuesArray);
         _this.dom.displayIssues(issuesArray);
+        _this.dom.updateMarkdown();
+        _this.dom.updateHTMLResult();
       });
     }
   }
